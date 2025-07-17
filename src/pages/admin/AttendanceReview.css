@@ -1,48 +1,76 @@
+/* AttendanceReview.css */
+
 .review-container {
-  padding: 2rem;
   max-width: 1000px;
-  margin: auto;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.review-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
 }
 
 .record-card {
-  background: #f8f9fa;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
+  background-color: #f9f9f9;
+  border-left: 5px solid #007bff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 25px;
+  transition: all 0.3s ease;
+}
+
+.record-card:hover {
+  background-color: #f1f1f1;
 }
 
 .record-card h3 {
-  margin-bottom: 0.5rem;
-  color: #1e3c72;
+  margin-bottom: 15px;
+  color: #444;
+}
+
+.record-card p {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #555;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1rem;
+  margin-bottom: 20px;
+}
+
+table thead tr {
+  background-color: #007bff;
+  color: white;
 }
 
 table th,
 table td {
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-  text-align: center;
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
 }
 
 .btn-group {
-  margin-top: 1rem;
   display: flex;
   gap: 10px;
 }
 
 .approve-btn,
 .reject-btn {
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
+  padding: 10px 20px;
+  font-weight: bold;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .approve-btn {
@@ -50,7 +78,36 @@ table td {
   color: white;
 }
 
+.approve-btn:hover {
+  background-color: #218838;
+}
+
 .reject-btn {
   background-color: #dc3545;
   color: white;
+}
+
+.reject-btn:hover {
+  background-color: #c82333;
+}
+
+@media (max-width: 768px) {
+  .record-card {
+    padding: 15px;
+  }
+
+  table th,
+  table td {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .btn-group {
+    flex-direction: column;
+  }
+
+  .approve-btn,
+  .reject-btn {
+    width: 100%;
+  }
 }

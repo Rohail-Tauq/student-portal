@@ -1,7 +1,13 @@
 // src/pages/teacher/TeacherDashboard.jsx
 import React, { useEffect, useState } from "react";
 import { db } from "../../firebase/firebaseConfig";
-import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+} from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
 import "./TeacherDashboard.css";
 
@@ -26,9 +32,16 @@ function TeacherDashboard() {
     };
 
     const fetchStudents = async (className) => {
-      const q = query(collection(db, "users"), where("class", "==", className), where("role", "==", "student"));
+      const q = query(
+        collection(db, "users"),
+        where("class", "==", className),
+        where("role", "==", "student")
+      );
       const querySnapshot = await getDocs(q);
-      const studentList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      const studentList = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
       setStudents(studentList);
     };
 
@@ -48,13 +61,27 @@ function TeacherDashboard() {
     const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
 
     try {
+      // Check if attendance already submitted for this class today
+      const q = query(
+        collection(db, "attendance"),
+        where("class", "==", teacherData.class),
+        where("date", "==", today)
+      );
+      const existing = await getDocs(q);
+
+      if (!existing.empty) {
+        setMessage("⚠️ Attendance already submitted for today.");
+        return;
+      }
+
       await addDoc(collection(db, "attendance"), {
         teacher: user.email,
         class: teacherData.class,
         date: today,
         status: attendance,
-        approved: false, // for admin approval
+        approved: false,
       });
+
       setMessage("✅ Attendance submitted for approval!");
     } catch (err) {
       console.error("Error submitting attendance", err);
